@@ -44,5 +44,14 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: 
-          
+           matrix:
+            platform:
+            - { name: Windows VS2019  }
+            - { name: Windows VS2022 }
+            - { name: Linux GCC}
+            - { name: Linux Clang }
+            - { name: MacOS XCode}
+            config:
+            - { name: Shared}
+            - { name: Static}
         path: ./build
