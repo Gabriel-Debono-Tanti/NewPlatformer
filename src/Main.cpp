@@ -44,6 +44,7 @@ int main()
     Wall ceiling(Vector2f(200, 100), Color::White);
     vector<Wall> walls;
     
+   
     int posy = 0;
     int posx = 0;
     for(int i = 0; i < tilemap1.size(); i++){
@@ -74,7 +75,7 @@ int main()
             
     }
     p.setPos(Vector2f(40, 50));
-    cout << walls.size();
+    
     while (window.isOpen())
     {
         p.input();
@@ -119,7 +120,9 @@ int main()
             }
         }
     }
+
 }
+        
         window.setVerticalSyncEnabled(true); 
         window.setFramerateLimit(60);
         window.clear(Color::Black);

@@ -10,12 +10,13 @@ using namespace sf;
 class Player
 {
 private:
-    
+
 public:
 sf::RectangleShape player;
 int gravityspeed = 4;
 float jumptime = 3;
 bool canjump = false;
+    
 
 
     Player(sf::Vector2f size, sf::Color colour){
