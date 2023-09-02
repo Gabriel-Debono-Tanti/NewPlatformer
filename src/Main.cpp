@@ -160,10 +160,11 @@ int main()
     while (window.isOpen())
     {
         
-        p.input();
+        p.Movement();
+        
         floor.setPos(Vector2f(20, 300));
         ceiling.setPos(Vector2f(20, 100));
-       
+         
        walls.push_back(ceiling);
        walls.push_back(floor);
        view.setCenter(p.player.getOrigin().x, p.player.getOrigin().y);
@@ -191,8 +192,10 @@ int main()
        if (overlap.width < overlap.height) {
     if (playerBounds.left < wallBounds.left) {
         p.player.setPosition(p.player.getPosition().x - overlap.width, p.player.getPosition().y);
+        
     } else {
         p.player.setPosition(p.player.getPosition().x + overlap.width, p.player.getPosition().y);
+       
     }
 } else {
     if (playerBounds.top < wallBounds.top) {

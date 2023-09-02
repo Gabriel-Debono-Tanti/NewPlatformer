@@ -45,7 +45,7 @@ bool canjump = false;
         }
         return false;
     }
-    void input(){
+    void Movement(){
         move(Vector2f(0, gravityspeed));
        move(Vector2f((Keyboard::isKeyPressed(Keyboard::Right) - Keyboard::isKeyPressed(Keyboard::Left)) * 2, 0));
             
