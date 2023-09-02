@@ -16,12 +16,13 @@ sf::RectangleShape player;
 int gravityspeed = 4;
 float jumptime = 3;
 bool canjump = false;
-    
+
 
 
     Player(sf::Vector2f size, sf::Color colour){
         player.setSize(size);
         player.setFillColor(colour);
+        player.setOrigin(player.getSize().x / 2, player.getSize().y / 2);
     }
     void drawTo(sf::RenderWindow &window){
         window.draw(player);
@@ -35,6 +36,9 @@ bool canjump = false;
     int GetY(){
         return player.getPosition().y;
     }
+     int GetX(){
+        return player.getPosition().y;
+    }
     bool iscollidingwithcoin(Coin *coin){
         if(player.getGlobalBounds().intersects(coin->getglobalbounds())){
             return true;
@@ -43,15 +47,10 @@ bool canjump = false;
     }
     void input(){
         move(Vector2f(0, gravityspeed));
-        if(Keyboard::isKeyPressed(Keyboard::Right)){
-            move(Vector2f(2,0));
+       move(Vector2f((Keyboard::isKeyPressed(Keyboard::Right) - Keyboard::isKeyPressed(Keyboard::Left)) * 2, 0));
             
-        }
-        if(Keyboard::isKeyPressed(Keyboard::Left)){
-            
-            move(Vector2f(-2,0));
-            
-        }
+       
+
         if(Keyboard::isKeyPressed(Keyboard::Space)){
             if(canjump == true || jumptime > 0){
                 move(Vector2f(0,-10));
