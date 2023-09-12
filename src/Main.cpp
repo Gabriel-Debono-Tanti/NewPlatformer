@@ -27,8 +27,8 @@ int main()
     Wall ceiling(Vector2f(200, 100), Color::White);
     vector<Wall> walls;
     vector<Sprite> tilemap;
-    View view;
-    view.setCenter(p.player.getOrigin().x, p.player.getOrigin().y);
+   
+    
 
    
 
@@ -147,7 +147,8 @@ int main()
             
             tilemap.push_back(tile);
              posx += 32;  
-        }       
+        }  
+          
     }
     for(const auto& element : level["layers"][1]["objects"]){
 
@@ -155,19 +156,23 @@ int main()
         wall.setPos(Vector2f(element["x"], element["y"]));
         walls.push_back(wall);
     }
-    p.setPos(Vector2f(40, 50));
-    
+    p.setPosition(Vector2f(40, 50));
+    cout << walls.size() << endl;
+    cout << tilemap.size() << endl;   
+    floor.setPos(Vector2f(20, 300));
+        ceiling.setPos(Vector2f(20, 100));
+    walls.push_back(ceiling);
+       walls.push_back(floor);
+       
     while (window.isOpen())
     {
         
-        p.Movement();
+        p.handleInput();
         
-        floor.setPos(Vector2f(20, 300));
-        ceiling.setPos(Vector2f(20, 100));
+        
          
-       walls.push_back(ceiling);
-       walls.push_back(floor);
-       view.setCenter(p.player.getOrigin().x, p.player.getOrigin().y);
+       
+       
         
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
@@ -181,39 +186,16 @@ int main()
                 window.setView(sf::View(visibleArea));
             }
         }
-    for (const Wall& wall : walls) {
-    sf::FloatRect wallBounds = wall.Wallbox.getGlobalBounds();
-    sf::FloatRect playerBounds = p.player.getGlobalBounds();
-    
-    if (playerBounds.intersects(wallBounds)) {
-        sf::FloatRect overlap;
-        playerBounds.intersects(wallBounds, overlap);
-
-       if (overlap.width < overlap.height) {
-    if (playerBounds.left < wallBounds.left) {
-        p.player.setPosition(p.player.getPosition().x - overlap.width, p.player.getPosition().y);
         
-    } else {
-        p.player.setPosition(p.player.getPosition().x + overlap.width, p.player.getPosition().y);
-       
-    }
-} else {
-    if (playerBounds.top < wallBounds.top) {
-        p.player.setPosition(p.player.getPosition().x, p.player.getPosition().y - overlap.height);
-        p.canjump = true;
-        p.jumptime = 2;
-    } else {
-        p.player.setPosition(p.player.getPosition().x, p.player.getPosition().y + overlap.height);
-    }
-}
-    }
-
-}
+    
         
         
         window.setVerticalSyncEnabled(true); 
         window.setFramerateLimit(60);
         window.clear(Color::Black);
+         p.handleWallCollisions(walls);
+          p.handleClimbing(walls);
+         
         p.drawTo(window);
         
         for(auto wall : walls){
@@ -225,6 +207,6 @@ int main()
         window.display();
         
     }
-
+    
     return 0;
 }

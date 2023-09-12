@@ -12,7 +12,7 @@ private:
     
 public:
     RectangleShape Wallbox;
-    
+    bool isClimbable = true;
     sf::FloatRect getglobalbounds(){
         return Wallbox.getGlobalBounds();
     }
@@ -31,6 +31,7 @@ public:
     }void setPos(sf::Vector2f pos){
         Wallbox.setPosition(pos);
     }
+
 };
 
 
